@@ -1,17 +1,19 @@
-def validP(s):
-    stack = []
-    hashMap = {")":"(", "}":"{", "]":"["}
+class MinStack:
+    def __init__(self):
+        self.stack = []
+        self.minStack = []
 
-    for char in s:
-        if char in hashMap:
-            if stack and stack[-1] == hashMap[char]:
-                stack.pop()
-            else:
-                return False
-        else:
-            stack.append(char)
-    return len(stack) == 0
+    def push(self, val):
+        self.stack.append(val)
+        val = min(val, self.minStack[-1] if self.minStack else val)
+        self.minStack.append(val)
 
-print(validP("{([{}])}"))
+    def pop(self):
+        self.stack.pop()
+        self.minStack.pop()
 
+    def top(self):
+        returns self.stack[-1]
 
+    def getMin(self):
+        return self.minStack[-1]
