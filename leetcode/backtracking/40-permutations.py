@@ -20,4 +20,4 @@ def permute(arr):
     return result
 
 
-print(permute([0, 1]))
+print(permute([1, 2, 3]))

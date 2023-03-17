@@ -7,7 +7,7 @@ def combine(n, k):
             res.append(stack[:])
             return
         else:
-            for i in range(next, n + 1):
+            for i in range(next, len(n) + 1):
                 stack.append(i)
                 backtrack(remain-1, i+1)
                 stack.pop()
@@ -16,4 +16,4 @@ def combine(n, k):
     return res
 
 
-print(combine(4, 3))
+print(combine([1, 2, 3, 4], 3))
