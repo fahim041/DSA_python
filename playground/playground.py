@@ -1,19 +1,14 @@
-def combine(n, k):
-    stack = []
-    res = []
+def prime(n):
+    flag = False
 
-    def backtrack(remain, next):
-        if remain == 0:
-            res.append(stack[:])
-            return
-        else:
-            for i in range(next, len(n) + 1):
-                stack.append(i)
-                backtrack(remain-1, i+1)
-                stack.pop()
-
-    backtrack(k, 1)
-    return res
+    for i in range(2, n):
+        if n % 2 == 0:
+            flag = True
+            break
+    if flag:
+        print("not prime")
+    else:
+        print("prime")
 
 
-print(combine([1, 2, 3, 4], 3))
+prime(28)
