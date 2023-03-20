@@ -93,8 +93,10 @@ class LinkedList:
 
     def kth(self, k):
         curr, temp = self.head, self.head
-        for i in range(0, k):
+        while k > 0 and temp:
+            print('loop', k)
             temp = temp.next
+            k -= 1
 
         while temp != None:
             temp = temp.next
@@ -103,14 +105,21 @@ class LinkedList:
 
     def removeKth(self, k):
         curr, temp = self.head, self.head
-        for i in range(k + 1):
+        while k >= 0 and temp:
             temp = temp.next
-        while temp != None:
+            k -= 1
+        while temp:
             temp = temp.next
             curr = curr.next
-        dummy = curr.next
-        curr.next = dummy.next
-        dummy.next = None
+
+        curr.next = curr.next.next
+
+    def findMidNode(self):
+        slow, fast = self.head, self.head.next
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        return slow
 
     def print(self):
         cur = self.head
@@ -125,7 +134,8 @@ l.addLast(20)
 l.addLast(30)
 l.addLast(40)
 l.addLast(50)
-
-print("kth-delete", l.removeKth(3))
-
+l.addLast(60)
+# l.addLast(70)
 l.print()
+
+print("mid node", l.findMidNode().value)
