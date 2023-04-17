@@ -1,12 +1,15 @@
 import dynamic_array.DynamicArray;
+import queue.Queue;
 
 public class Main {
     public static void main(String[] args) {
-        DynamicArray arr = new DynamicArray();
-        arr.push(4);
-        arr.push(10);
-        arr.push(44);
+        Queue queue = new Queue();
+        queue.push(4);
+        queue.push(10);
+        queue.push(6);
 
-        arr.print();
+        queue.pop();
+
+        queue.print();
     }
 }
