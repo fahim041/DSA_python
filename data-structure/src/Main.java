@@ -1,16 +1,12 @@
-import linkedlist.LinkedList;
+import dynamic_array.DynamicArray;
 
 public class Main {
     public static void main(String[] args) {
-        LinkedList list = new LinkedList();
-        list.insertFirst(2);
-        list.insertFirst(10);
-        list.insertFirst(7);
-        list.insertLast(21);
-        list.insertFirst(4);
+        DynamicArray arr = new DynamicArray();
+        arr.push(4);
+        arr.push(10);
+        arr.push(44);
 
-        list.sort();
-
-        list.print();
+        arr.print();
     }
 }
