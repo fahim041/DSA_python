@@ -3,13 +3,12 @@ import queue.Queue;
 
 public class Main {
     public static void main(String[] args) {
-        Queue queue = new Queue();
-        queue.push(4);
-        queue.push(10);
-        queue.push(6);
-
-        queue.pop();
-
-        queue.print();
+        var array = new DynamicArray(2);
+        array.insert(4);
+        array.insert(5);
+        array.insert(6);
+        array.insert(7);
+        array.insert(8);
+        System.out.println(array.indexOf(70));
     }
 }
