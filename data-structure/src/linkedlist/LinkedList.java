@@ -1,117 +1,140 @@
 package linkedlist;
 
+import java.util.NoSuchElementException;
+
 public class LinkedList {
     class Node{
-        int val;
-        Node next;
+        private int value;
+        private Node next;
 
-        Node(int val){
-            this.val = val;
-            next = null;
+        public Node(int value){
+            this.value = value;
         }
     }
 
-    Node head;
+    private Node first;
+    private Node last;
 
-    public void insertFirst(int val){
-        Node newNode = new Node(val);
-        if(head == null) {
-            head = newNode;
-        }else {
-            newNode.next = head;
-            head = newNode;
+    public void addLast(int item){
+        var node = new Node(item);
+        if(isEmpty()){
+            first = last = node;
+        } else {
+            last.next = node;
+            last = node;
         }
     }
 
-    public void insertLast(int val){
-        Node newNode = new Node(val);
-        if(head == null){
-            head = newNode;
+    public void addFirst(int item){
+        var node = new Node(item);
+        if(isEmpty()){
+            first = last = node;
+        } else {
+            node.next = first;
+            first = node;
+        }
+    }
+
+    public void removeFirst(){
+        if(isEmpty()) throw new NoSuchElementException();
+
+        if(first == last){
+            first = last = null;
             return;
         }
 
-        Node tmp = head;
-        while(tmp.next != null){
-            tmp = tmp.next;
-        }
-
-        tmp.next = newNode;
+        var head = first;
+        first = head.next;
+        head.next = null;
     }
 
-    public boolean deleteLast(){
-        if(count() < 1 ){
-            return false;
-        } else{
-            Node tmp = head;
-            while(tmp.next.next != null){
-                tmp = tmp.next;
-            }
-            tmp.next = null;
-            return true;
-        }
-    }
+    public void removeLast(){
+        if(isEmpty()) throw new NoSuchElementException();
 
-    public boolean deleteNode(int index){
-        if(count() <= 0){
-            return false;
-        }
-
-        Node tmp = head;
-        int n = 0;
-        while(n < index - 1){
-            tmp = tmp.next;
-            n++;
-        }
-        Node deletedNode = tmp.next;
-        tmp.next = tmp.next.next;
-        deletedNode.next = null;
-
-        return true;
-    }
-
-    public void sort(){
-        if(head == null){
+        if(first == last){
+            first = last = null;
             return;
         }
 
-        Node current = head;
-        Node next = null;
+        var current = first;
+        while(current.next.next != null){
+            current = current.next;
+        }
+
+        current.next = null;
+        last = current;
+    }
+
+    public int indexOf(int item){
+        int index = 0;
+        var current = first;
 
         while(current != null){
-            next = current.next;
-
-            while(next != null){
-                if(current.val > next.val){
-                    int tmp = current.val;
-                    current.val = next.val;
-                    next.val = tmp;
-                }
-                next = next.next;
+            if(current.value == item){
+                return index;
             }
+            current = current.next;
+            index++;
+        }
+        return -1;
+    }
+
+    public boolean contains(int item){
+        return indexOf(item) != -1;
+    }
+
+    public int size(){
+        if(isEmpty()) return 0;
+        var current = first;
+        int count = 0;
+        while(current != null){
+            count++;
+            current = current.next;
+        }
+
+        return count;
+    }
+
+    public void print(){
+        if(first == null)
+            System.out.println("list is empty");
+        var current = first;
+        while(current != null){
+            System.out.print(current.value+ "-> ");
             current = current.next;
         }
     }
 
-    public int count(){
-        int n = 0;
-        if(head == null){
-            return 0;
-        } else{
-            Node tmp = head;
-            while(tmp != null){
-                n++;
-                tmp = tmp.next;
-            }
+    public int[] toArray(){
+        if(isEmpty()) return new int[0];
+        int[] arr = new int[size()];
+        int index = 0;
+        var current = first;
+        while(current != null){
+            arr[index] = current.value;
+            current = current.next;
+            index++;
+        }
 
-            return n;
+        return arr;
+    }
+
+    public void reverse(){
+        Node prev = null;
+        var current = first;
+        first = last;
+        last = first;
+
+        while(current != null){
+            var next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
         }
     }
 
-    public void print(){
-        Node tmp = head;
-        while(tmp != null){
-            System.out.print(tmp.val+ "->");
-            tmp = tmp.next;
-        }
+    private boolean isEmpty(){
+        return first == null;
     }
+
 }

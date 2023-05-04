@@ -1,46 +1,33 @@
 package queue;
 
+import java.util.Arrays;
+
 public class Queue {
-    class Node{
-        int val;
-        Node next;
+    private int[] items;
+    private int rear;
+    private int count;
+    private int front;
 
-        public Node(int val){
-            this.val = val;
-            next = null;
-        }
+    public Queue(int capacity){
+        items = new int[capacity];
     }
 
-    Node head;
-
-    public void push(int data){
-        Node newNode = new Node(data);
-        if(head == null){
-            head = newNode;
-            return;
-        }
-
-        Node temp = head;
-        while(temp.next != null){
-            temp = temp.next;
-        }
-        temp.next = newNode;
+    public void enqueue(int item){
+        if(count == items.length)
+            throw new IllegalArgumentException();
+        items[rear++] = item;
+        count++;
     }
 
-    public void pop(){
-        if(head == null){
-            return;
-        }
-        Node temp = head;
-        head = temp.next;
-        temp.next = null;
+    public int dequeue(){
+        var item = items[front];
+        items[front++] = 0;
+        count--;
+        return item;
     }
 
-    public void print(){
-        Node temp = head;
-        while(temp != null){
-            System.out.println(temp.val);
-            temp = temp.next;
-        }
+    @Override
+    public String toString() {
+        return Arrays.toString(items);
     }
 }
