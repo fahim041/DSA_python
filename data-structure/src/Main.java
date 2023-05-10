@@ -1,14 +1,15 @@
-import queue.PriorityQueue;
-
-import java.util.*;
+import tree.Tree;
 
 public class Main {
     public static void main(String[] args) {
-        PriorityQueue queue = new PriorityQueue();
-        queue.enqueue(5);
-        queue.enqueue(3);
-        queue.enqueue(6);
-        queue.enqueue(1);
-        queue.dequeue();
+        Tree tree = new Tree();
+        tree.insert(7);
+        tree.insert(4);
+        tree.insert(9);
+        tree.insert(1);
+        tree.insert(6);
+        tree.insert(8);
+        tree.insert(10);
+        tree.breadthFirstTraverse();
     }
 }
