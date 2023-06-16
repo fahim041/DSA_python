@@ -8,7 +8,7 @@ def mergeSort(arr):
         mergeSort(R)
 
         i = j = k = 0
-        
+
         while i < len(L) and j < len(R):
             if L[i] <= R[j]:
                 arr[k] = L[i]
@@ -17,7 +17,7 @@ def mergeSort(arr):
                 arr[k] = R[j]
                 j += 1
             k += 1
-        
+
         while i < len(L):
             arr[k] = L[i]
             i += 1
@@ -28,4 +28,5 @@ def mergeSort(arr):
             k += 1
     return arr
 
-print(mergeSort([6,3,7,8,1,3]))
+
+print(mergeSort([6, 3, 7, 8, 1, 3]))
