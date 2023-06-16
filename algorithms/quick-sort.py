@@ -9,11 +9,11 @@ def quick(arr):
 
     for i in arr:
         if pivot > i:
-            greater.append(i)
-        else:
             smaller.append(i)
+        else:
+            greater.append(i)
 
-    return quick(greater) + [pivot] + quick(smaller)
+    return quick(smaller) + [pivot] + quick(greater)
 
 
 print(quick([5, 2, 5, 7, 12, 3, 6, 8, 2, 5, 7]))
