@@ -9,9 +9,9 @@ def binary_search(arr, target):
         elif arr[mid] < target:
             low = mid + 1
         else:
-            high = high - 1
+            high = mid - 1
     return -1
 
 
 a = [2, 4, 6, 7, 8, 11, 55]
-print(binary_search(a, 6))
+print(binary_search(a, 11))
