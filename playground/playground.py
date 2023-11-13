@@ -1,77 +1,41 @@
-class TreeNode:
-    def __init__(self, val):
-        self.val = val
-        self.left = None
-        self.right = None
+def dfs_shortest_path(grid):
+    ROWS, COLS = len(grid), len(grid[0])
 
-def insert(root, val):
-    if not root:
-        return TreeNode(val)
+    def dfs_helper(r, c, visit):
+        if(
+            min(r, c) < 0 or 
+            r == ROWS or c == COLS or
+            (r, c) in visit or 
+            grid[r][c] == 1
+        ):
+            return float("inf")
+        
+        if r == ROWS - 1 and c == COLS - 1:
+            return 0
+        
+        visit.add((r, c))
+        
+        min_route = float("inf")
+        min_route = min(min_route, 1 + dfs_helper(r + 1, c, visit))
+        min_route = min(min_route, 1 + dfs_helper(r - 1, c, visit))
+        min_route = min(min_route, 1 + dfs_helper(r, c + 1, visit))
+        min_route = min(min_route, 1 + dfs_helper(r, c - 1, visit))
+
+        visit.remove((r, c))
+        return min_route
+
+    visit = set()
+    result = dfs_helper(0, 0, visit)
     
-    if val < root.val:
-        root.left = insert(root.left, val)
-    elif val > root.val:
-        root.right = insert(root.right, val)
+    return result
 
-    return root
+# Example usage:
+grid = [
+    [0, 0, 0, 0],
+    [1, 1, 0, 0],
+    [0, 0, 0, 1],
+    [0, 1, 0, 0]
+]
 
-def inOrder(root):
-    if not root:
-        return
-    
-    inOrder(root.left)
-    print(root.val)
-    inOrder(root.right)
-
-def bfs(root):
-    res = []
-    queue = []
-    if root:
-        queue.append(root)
-
-    while len(queue) > 0:
-        for i in range(len(queue)):
-            curr = queue.pop(0)
-            res.append(curr.val)
-
-            if curr.left:
-                queue.append(curr.left)
-
-            if curr.right:
-                queue.append(curr.right)
-    
-    print(res)
-
-def rightside(root):
-    res = []
-    queue = []
-
-    if root:
-        queue.append(root)
-
-    while queue:
-        rightSide = None
-        lenQueue = len(queue)
-
-        for i in range(lenQueue):
-            node = queue.pop(0)
-            if node:
-                rightSide = node
-                queue.append(node.left)
-                queue.append(node.right)
-        if rightSide:
-            res.append(rightSide.val)
-
-    return res
-
-
-root = None
-root = insert(root, 10)
-root = insert(root, 7)
-root = insert(root, 12)
-root = insert(root, 5)
-root = insert(root, 9)
-root = insert(root, 11)
-root = insert(root, 15)
-
-print(rightside(root))
+result = dfs_shortest_path(grid)
+print(result)
